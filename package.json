@@ -1,0 +1,11 @@
+{
+  "name": "spotis",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix music-platform run dev",
+    "build": "npm --prefix music-platform run build",
+    "start": "npm --prefix music-platform run start",
+    "lint": "npm --prefix music-platform run lint",
+    "postinstall": "npm --prefix music-platform install"
+  }
+}
