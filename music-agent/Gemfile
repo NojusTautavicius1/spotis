@@ -1,0 +1,9 @@
+source "https://rubygems.org"
+
+gem "ruby_llm"
+gem "sinatra"
+gem "puma"
+gem "pg"
+gem "json"
+gem "dotenv"
+gem "rackup"
