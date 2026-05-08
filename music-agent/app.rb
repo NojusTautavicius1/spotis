@@ -11,6 +11,11 @@ end
 
 DB = PG.connect(ENV['DATABASE_URL'])
 
+set :port, ENV['PORT'] || 4567
+set :bind, '0.0.0.0'
+set :environment, :production
+set :protection, except: [:host_authorization]
+
 # ─── TOOLS ───────────────────────────────────────────────────────
 
 class SearchByMood < RubyLLM::Tool
@@ -133,9 +138,6 @@ class MusicAgent < RubyLLM::Agent
 end
 
 # ─── HTTP API ─────────────────────────────────────────────────────
-
-set :port, ENV['PORT'] || 4567
-set :bind, '0.0.0.0'
 
 post '/agent/query' do
   content_type :json
