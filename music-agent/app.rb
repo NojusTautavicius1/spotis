@@ -1,3 +1,8 @@
+# encoding: UTF-8
+
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 require 'sinatra'
 require 'ruby_llm'
 require 'pg'
@@ -141,17 +146,18 @@ end
 
 post '/agent/query' do
   content_type :json
-  body = JSON.parse(request.body.read)
+  body = JSON.parse(request.body.read.force_encoding('UTF-8'))
   query = body['query']
 
   halt 400, { error: 'query is required' }.to_json if query.nil? || query.strip.empty?
 
   agent = MusicAgent.new
   response = agent.ask(query)
-  response.content
+  content = response.content.force_encoding('UTF-8')
+  content
 rescue => e
   status 500
-  { error: e.message }.to_json
+  { error: e.message.encode('UTF-8', invalid: :replace, undef: :replace) }.to_json
 end
 
 get '/health' do
